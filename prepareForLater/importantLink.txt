@@ -1,0 +1,21 @@
+https://worldview.earthdata.nasa.gov/?v=-725393.5443521066,-2669545.71839494,-233873.54435210663,-2419689.71839494&p=arctic&t=2020-03-12-T00%3A00%3A00Z&as=2020-03-16-T00%3A00%3A00Z&ae=2020-03-26-T00%3A00%3A00Z&ab=on
+
+https://ieee-dataport.org/open-access/alberta-river-ice-segmentation-dataset
+
+
+For image Augmentation: https://github.com/mdbloice/Augmentor
+Marcus D Bloice, Peter M Roth, Andreas Holzinger, Biomedical image augmentation using Augmentor, Bioinformatics, https://doi.org/10.1093/bioinformatics/btz259
+
+
+
+Segnet implementation
+
+https://medium.com/@qucit/a-keras-segnet-implementation-for-building-detection-in-the-spacenet-dataset-edd23933f1f4
+
+important numbers:
+Original U-net has: (Fully convoltional NN)
+Total params: 31,031,875
+Trainable params: 31,031,875
+Non-trainable params: 0
+
+

@@ -1,0 +1,926 @@
+Here in this package are all the codes wrote for this project. Some codes in GVFcreatel_abelMatlab are open source and have been cited in the reference. Here, if you have futher information on how to use the code please let me know by email: kfu9@wisc.edu. All these codes are also in my github repo but it is still private status. I will change it to public once I fixed and finsih the next step mentioned in the Future work section. I am currently develop code for that model and once I finish, I will complete the README.md file to give instructions on how to use my code. Also for the algorithm please go for the paper provided in the reference 16. I used their algorithm to develop the code in matlab. I don't think anyone have every used this algorithm in deep learning applications before.
+
+A brief steps for using this code is:
+1. upzipped
+2. run imageAugmententation.py
+3. run runEngine.py (There are two line for commenting out or uncomment to switch to either U net or Seg net model)
+4. run results.py (There are two line for commenting out or uncomment to switch to either U net or Seg net model)
+
+
+Some important data
+
+Here we have for segnet:
+The architecture is:
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d_110 (Conv2D)          (None, 128, 128, 64)      1792      
+_________________________________________________________________
+batch_normalization_91 (Batc (None, 128, 128, 64)      256       
+_________________________________________________________________
+activation_90 (Activation)   (None, 128, 128, 64)      0         
+_________________________________________________________________
+conv2d_111 (Conv2D)          (None, 128, 128, 64)      36928     
+_________________________________________________________________
+batch_normalization_92 (Batc (None, 128, 128, 64)      256       
+_________________________________________________________________
+activation_91 (Activation)   (None, 128, 128, 64)      0         
+_________________________________________________________________
+max_pooling2d_24 (MaxPooling (None, 64, 64, 64)        0         
+_________________________________________________________________
+conv2d_112 (Conv2D)          (None, 64, 64, 128)       73856     
+_________________________________________________________________
+batch_normalization_93 (Batc (None, 64, 64, 128)       512       
+_________________________________________________________________
+activation_92 (Activation)   (None, 64, 64, 128)       0         
+_________________________________________________________________
+conv2d_113 (Conv2D)          (None, 64, 64, 128)       147584    
+_________________________________________________________________
+batch_normalization_94 (Batc (None, 64, 64, 128)       512       
+_________________________________________________________________
+activation_93 (Activation)   (None, 64, 64, 128)       0         
+_________________________________________________________________
+max_pooling2d_25 (MaxPooling (None, 32, 32, 128)       0         
+_________________________________________________________________
+conv2d_114 (Conv2D)          (None, 32, 32, 256)       295168    
+_________________________________________________________________
+batch_normalization_95 (Batc (None, 32, 32, 256)       1024      
+_________________________________________________________________
+activation_94 (Activation)   (None, 32, 32, 256)       0         
+_________________________________________________________________
+conv2d_115 (Conv2D)          (None, 32, 32, 256)       590080    
+_________________________________________________________________
+batch_normalization_96 (Batc (None, 32, 32, 256)       1024      
+_________________________________________________________________
+activation_95 (Activation)   (None, 32, 32, 256)       0         
+_________________________________________________________________
+conv2d_116 (Conv2D)          (None, 32, 32, 256)       590080    
+_________________________________________________________________
+batch_normalization_97 (Batc (None, 32, 32, 256)       1024      
+_________________________________________________________________
+activation_96 (Activation)   (None, 32, 32, 256)       0         
+_________________________________________________________________
+max_pooling2d_26 (MaxPooling (None, 16, 16, 256)       0         
+_________________________________________________________________
+conv2d_117 (Conv2D)          (None, 16, 16, 512)       1180160   
+_________________________________________________________________
+batch_normalization_98 (Batc (None, 16, 16, 512)       2048      
+_________________________________________________________________
+activation_97 (Activation)   (None, 16, 16, 512)       0         
+_________________________________________________________________
+conv2d_118 (Conv2D)          (None, 16, 16, 512)       2359808   
+_________________________________________________________________
+batch_normalization_99 (Batc (None, 16, 16, 512)       2048      
+_________________________________________________________________
+activation_98 (Activation)   (None, 16, 16, 512)       0         
+_________________________________________________________________
+conv2d_119 (Conv2D)          (None, 16, 16, 512)       2359808   
+_________________________________________________________________
+batch_normalization_100 (Bat (None, 16, 16, 512)       2048      
+_________________________________________________________________
+activation_99 (Activation)   (None, 16, 16, 512)       0         
+_________________________________________________________________
+max_pooling2d_27 (MaxPooling (None, 8, 8, 512)         0         
+_________________________________________________________________
+conv2d_120 (Conv2D)          (None, 8, 8, 512)         2359808   
+_________________________________________________________________
+batch_normalization_101 (Bat (None, 8, 8, 512)         2048      
+_________________________________________________________________
+activation_100 (Activation)  (None, 8, 8, 512)         0         
+_________________________________________________________________
+conv2d_121 (Conv2D)          (None, 8, 8, 512)         2359808   
+_________________________________________________________________
+batch_normalization_102 (Bat (None, 8, 8, 512)         2048      
+_________________________________________________________________
+activation_101 (Activation)  (None, 8, 8, 512)         0         
+_________________________________________________________________
+conv2d_122 (Conv2D)          (None, 8, 8, 512)         2359808   
+_________________________________________________________________
+batch_normalization_103 (Bat (None, 8, 8, 512)         2048      
+_________________________________________________________________
+activation_102 (Activation)  (None, 8, 8, 512)         0         
+_________________________________________________________________
+max_pooling2d_28 (MaxPooling (None, 4, 4, 512)         0         
+_________________________________________________________________
+up_sampling2d_15 (UpSampling (None, 8, 8, 512)         0         
+_________________________________________________________________
+conv2d_123 (Conv2D)          (None, 8, 8, 512)         2359808   
+_________________________________________________________________
+batch_normalization_104 (Bat (None, 8, 8, 512)         2048      
+_________________________________________________________________
+activation_103 (Activation)  (None, 8, 8, 512)         0         
+_________________________________________________________________
+conv2d_124 (Conv2D)          (None, 8, 8, 512)         2359808   
+_________________________________________________________________
+batch_normalization_105 (Bat (None, 8, 8, 512)         2048      
+_________________________________________________________________
+activation_104 (Activation)  (None, 8, 8, 512)         0         
+_________________________________________________________________
+conv2d_125 (Conv2D)          (None, 8, 8, 512)         2359808   
+_________________________________________________________________
+batch_normalization_106 (Bat (None, 8, 8, 512)         2048      
+_________________________________________________________________
+activation_105 (Activation)  (None, 8, 8, 512)         0         
+_________________________________________________________________
+up_sampling2d_16 (UpSampling (None, 16, 16, 512)       0         
+_________________________________________________________________
+conv2d_126 (Conv2D)          (None, 16, 16, 512)       2359808   
+_________________________________________________________________
+batch_normalization_107 (Bat (None, 16, 16, 512)       2048      
+_________________________________________________________________
+activation_106 (Activation)  (None, 16, 16, 512)       0         
+_________________________________________________________________
+conv2d_127 (Conv2D)          (None, 16, 16, 512)       2359808   
+_________________________________________________________________
+batch_normalization_108 (Bat (None, 16, 16, 512)       2048      
+_________________________________________________________________
+activation_107 (Activation)  (None, 16, 16, 512)       0         
+_________________________________________________________________
+conv2d_128 (Conv2D)          (None, 16, 16, 256)       1179904   
+_________________________________________________________________
+batch_normalization_109 (Bat (None, 16, 16, 256)       1024      
+_________________________________________________________________
+activation_108 (Activation)  (None, 16, 16, 256)       0         
+_________________________________________________________________
+up_sampling2d_17 (UpSampling (None, 32, 32, 256)       0         
+_________________________________________________________________
+conv2d_129 (Conv2D)          (None, 32, 32, 256)       590080    
+_________________________________________________________________
+batch_normalization_110 (Bat (None, 32, 32, 256)       1024      
+_________________________________________________________________
+activation_109 (Activation)  (None, 32, 32, 256)       0         
+_________________________________________________________________
+conv2d_130 (Conv2D)          (None, 32, 32, 256)       590080    
+_________________________________________________________________
+batch_normalization_111 (Bat (None, 32, 32, 256)       1024      
+_________________________________________________________________
+activation_110 (Activation)  (None, 32, 32, 256)       0         
+_________________________________________________________________
+conv2d_131 (Conv2D)          (None, 32, 32, 128)       295040    
+_________________________________________________________________
+batch_normalization_112 (Bat (None, 32, 32, 128)       512       
+_________________________________________________________________
+activation_111 (Activation)  (None, 32, 32, 128)       0         
+_________________________________________________________________
+up_sampling2d_18 (UpSampling (None, 64, 64, 128)       0         
+_________________________________________________________________
+conv2d_132 (Conv2D)          (None, 64, 64, 128)       147584    
+_________________________________________________________________
+batch_normalization_113 (Bat (None, 64, 64, 128)       512       
+_________________________________________________________________
+activation_112 (Activation)  (None, 64, 64, 128)       0         
+_________________________________________________________________
+conv2d_133 (Conv2D)          (None, 64, 64, 64)        73792     
+_________________________________________________________________
+batch_normalization_114 (Bat (None, 64, 64, 64)        256       
+_________________________________________________________________
+activation_113 (Activation)  (None, 64, 64, 64)        0         
+_________________________________________________________________
+up_sampling2d_19 (UpSampling (None, 128, 128, 64)      0         
+_________________________________________________________________
+conv2d_134 (Conv2D)          (None, 128, 128, 64)      36928     
+_________________________________________________________________
+batch_normalization_115 (Bat (None, 128, 128, 64)      256       
+_________________________________________________________________
+activation_114 (Activation)  (None, 128, 128, 64)      0         
+_________________________________________________________________
+conv2d_135 (Conv2D)          (None, 128, 128, 1)       65        
+_________________________________________________________________
+batch_normalization_116 (Bat (None, 128, 128, 1)       4         
+_________________________________________________________________
+conv2d_136 (Conv2D)          (None, 128, 128, 1)       2         
+=================================================================
+Total params: 29,458,951
+Trainable params: 29,443,077
+Non-trainable params: 15,874
+
+Entire parameter updating process:
+896/900 [============================>.] - ETA: 0s - loss: 0.6837 - accuracy: 0.6806  
+Epoch 00001: val_loss improved from inf to 1.10100, saving model to Segbestmodel.h5
+900/900 [==============================] - 24s 27ms/sample - loss: 0.6836 - accuracy: 0.6809 - val_loss: 1.1010 - val_accuracy: 0.6994
+Epoch 2/300
+896/900 [============================>.] - ETA: 0s - loss: 0.6568 - accuracy: 0.7348 
+Epoch 00002: val_loss improved from 1.10100 to 0.57527, saving model to Segbestmodel.h5
+900/900 [==============================] - 19s 21ms/sample - loss: 0.6567 - accuracy: 0.7348 - val_loss: 0.5753 - val_accuracy: 0.7932
+Epoch 3/300
+896/900 [============================>.] - ETA: 0s - loss: 0.6258 - accuracy: 0.7555 
+Epoch 00003: val_loss did not improve from 0.57527
+900/900 [==============================] - 17s 19ms/sample - loss: 0.6258 - accuracy: 0.7555 - val_loss: 0.8335 - val_accuracy: 0.7251
+Epoch 4/300
+896/900 [============================>.] - ETA: 0s - loss: 0.5921 - accuracy: 0.7725 
+Epoch 00004: val_loss improved from 0.57527 to 0.50404, saving model to Segbestmodel.h5
+900/900 [==============================] - 19s 21ms/sample - loss: 0.5921 - accuracy: 0.7725 - val_loss: 0.5040 - val_accuracy: 0.7772
+Epoch 5/300
+896/900 [============================>.] - ETA: 0s - loss: 0.5597 - accuracy: 0.7839 
+Epoch 00005: val_loss improved from 0.50404 to 0.44904, saving model to Segbestmodel.h5
+900/900 [==============================] - 19s 21ms/sample - loss: 0.5596 - accuracy: 0.7841 - val_loss: 0.4490 - val_accuracy: 0.7966
+Epoch 6/300
+896/900 [============================>.] - ETA: 0s - loss: 0.5289 - accuracy: 0.7940 
+Epoch 00006: val_loss did not improve from 0.44904
+900/900 [==============================] - 17s 19ms/sample - loss: 0.5289 - accuracy: 0.7939 - val_loss: 0.6320 - val_accuracy: 0.6585
+Epoch 7/300
+896/900 [============================>.] - ETA: 0s - loss: 0.4981 - accuracy: 0.8070 
+Epoch 00007: val_loss did not improve from 0.44904
+900/900 [==============================] - 18s 20ms/sample - loss: 0.4980 - accuracy: 0.8071 - val_loss: 0.6479 - val_accuracy: 0.5971
+Epoch 8/300
+896/900 [============================>.] - ETA: 0s - loss: 0.4725 - accuracy: 0.8152 
+Epoch 00008: val_loss improved from 0.44904 to 0.44497, saving model to Segbestmodel.h5
+900/900 [==============================] - 19s 21ms/sample - loss: 0.4724 - accuracy: 0.8152 - val_loss: 0.4450 - val_accuracy: 0.8054
+Epoch 9/300
+896/900 [============================>.] - ETA: 0s - loss: 0.4475 - accuracy: 0.8233 
+Epoch 00009: val_loss improved from 0.44497 to 0.40707, saving model to Segbestmodel.h5
+900/900 [==============================] - 19s 21ms/sample - loss: 0.4476 - accuracy: 0.8232 - val_loss: 0.4071 - val_accuracy: 0.8283
+Epoch 10/300
+896/900 [============================>.] - ETA: 0s - loss: 0.4265 - accuracy: 0.8297 
+Epoch 00010: val_loss improved from 0.40707 to 0.39468, saving model to Segbestmodel.h5
+900/900 [==============================] - 19s 21ms/sample - loss: 0.4265 - accuracy: 0.8297 - val_loss: 0.3947 - val_accuracy: 0.8343
+Epoch 11/300
+896/900 [============================>.] - ETA: 0s - loss: 0.4058 - accuracy: 0.8369 
+Epoch 00011: val_loss improved from 0.39468 to 0.38279, saving model to Segbestmodel.h5
+900/900 [==============================] - 20s 22ms/sample - loss: 0.4058 - accuracy: 0.8368 - val_loss: 0.3828 - val_accuracy: 0.8454
+Epoch 12/300
+896/900 [============================>.] - ETA: 0s - loss: 0.3859 - accuracy: 0.8445 
+Epoch 00012: val_loss improved from 0.38279 to 0.36415, saving model to Segbestmodel.h5
+900/900 [==============================] - 19s 21ms/sample - loss: 0.3860 - accuracy: 0.8443 - val_loss: 0.3642 - val_accuracy: 0.8475
+Epoch 13/300
+896/900 [============================>.] - ETA: 0s - loss: 0.3697 - accuracy: 0.8495 
+Epoch 00013: val_loss improved from 0.36415 to 0.35785, saving model to Segbestmodel.h5
+900/900 [==============================] - 19s 21ms/sample - loss: 0.3697 - accuracy: 0.8495 - val_loss: 0.3579 - val_accuracy: 0.8520
+Epoch 14/300
+896/900 [============================>.] - ETA: 0s - loss: 0.3569 - accuracy: 0.8528 
+Epoch 00014: val_loss did not improve from 0.35785
+900/900 [==============================] - 18s 20ms/sample - loss: 0.3569 - accuracy: 0.8528 - val_loss: 0.3858 - val_accuracy: 0.8291
+Epoch 15/300
+896/900 [============================>.] - ETA: 0s - loss: 0.3433 - accuracy: 0.8575 
+Epoch 00015: val_loss improved from 0.35785 to 0.34983, saving model to Segbestmodel.h5
+900/900 [==============================] - 19s 21ms/sample - loss: 0.3433 - accuracy: 0.8575 - val_loss: 0.3498 - val_accuracy: 0.8511
+Epoch 16/300
+896/900 [============================>.] - ETA: 0s - loss: 0.3289 - accuracy: 0.8635 
+Epoch 00016: val_loss improved from 0.34983 to 0.34503, saving model to Segbestmodel.h5
+900/900 [==============================] - 19s 21ms/sample - loss: 0.3290 - accuracy: 0.8634 - val_loss: 0.3450 - val_accuracy: 0.8531
+Epoch 17/300
+896/900 [============================>.] - ETA: 0s - loss: 0.3191 - accuracy: 0.8668 
+Epoch 00017: val_loss did not improve from 0.34503
+900/900 [==============================] - 18s 20ms/sample - loss: 0.3190 - accuracy: 0.8668 - val_loss: 0.3471 - val_accuracy: 0.8496
+Epoch 18/300
+896/900 [============================>.] - ETA: 0s - loss: 0.3085 - accuracy: 0.8704 
+Epoch 00018: val_loss improved from 0.34503 to 0.34092, saving model to Segbestmodel.h5
+900/900 [==============================] - 19s 21ms/sample - loss: 0.3085 - accuracy: 0.8704 - val_loss: 0.3409 - val_accuracy: 0.8525
+Epoch 19/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2968 - accuracy: 0.8758 
+Epoch 00019: val_loss did not improve from 0.34092
+900/900 [==============================] - 18s 20ms/sample - loss: 0.2972 - accuracy: 0.8756 - val_loss: 0.3429 - val_accuracy: 0.8508
+Epoch 20/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2902 - accuracy: 0.8778 
+Epoch 00020: val_loss improved from 0.34092 to 0.33530, saving model to Segbestmodel.h5
+900/900 [==============================] - 19s 22ms/sample - loss: 0.2903 - accuracy: 0.8778 - val_loss: 0.3353 - val_accuracy: 0.8572
+Epoch 21/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2809 - accuracy: 0.8817 
+Epoch 00021: val_loss did not improve from 0.33530
+900/900 [==============================] - 18s 20ms/sample - loss: 0.2809 - accuracy: 0.8817 - val_loss: 0.3555 - val_accuracy: 0.8418
+Epoch 22/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2691 - accuracy: 0.8872 
+Epoch 00022: val_loss did not improve from 0.33530
+900/900 [==============================] - 18s 19ms/sample - loss: 0.2692 - accuracy: 0.8871 - val_loss: 0.3409 - val_accuracy: 0.8538
+Epoch 23/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2657 - accuracy: 0.8879 
+Epoch 00023: val_loss did not improve from 0.33530
+900/900 [==============================] - 18s 20ms/sample - loss: 0.2655 - accuracy: 0.8880 - val_loss: 0.3451 - val_accuracy: 0.8555
+Epoch 24/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2560 - accuracy: 0.8923 
+Epoch 00024: val_loss did not improve from 0.33530
+900/900 [==============================] - 18s 19ms/sample - loss: 0.2559 - accuracy: 0.8923 - val_loss: 0.3399 - val_accuracy: 0.8548
+Epoch 25/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2500 - accuracy: 0.8946 
+Epoch 00025: val_loss did not improve from 0.33530
+900/900 [==============================] - 18s 20ms/sample - loss: 0.2500 - accuracy: 0.8946 - val_loss: 0.3422 - val_accuracy: 0.8598
+Epoch 26/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2438 - accuracy: 0.8972 
+Epoch 00026: val_loss did not improve from 0.33530
+900/900 [==============================] - 18s 20ms/sample - loss: 0.2440 - accuracy: 0.8971 - val_loss: 0.3391 - val_accuracy: 0.8559
+Epoch 27/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2365 - accuracy: 0.9005 
+Epoch 00027: val_loss did not improve from 0.33530
+900/900 [==============================] - 18s 20ms/sample - loss: 0.2366 - accuracy: 0.9005 - val_loss: 0.3460 - val_accuracy: 0.8585
+Epoch 28/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2340 - accuracy: 0.9011 
+Epoch 00028: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.2340 - accuracy: 0.9011 - val_loss: 0.3675 - val_accuracy: 0.8544
+Epoch 29/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2248 - accuracy: 0.9055 
+Epoch 00029: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.2250 - accuracy: 0.9054 - val_loss: 0.3531 - val_accuracy: 0.8568
+Epoch 30/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2221 - accuracy: 0.9064 
+Epoch 00030: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.2222 - accuracy: 0.9063 - val_loss: 0.3688 - val_accuracy: 0.8480
+Epoch 31/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2136 - accuracy: 0.9103 
+Epoch 00031: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.2137 - accuracy: 0.9103 - val_loss: 0.3563 - val_accuracy: 0.8500
+Epoch 32/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2120 - accuracy: 0.9108 
+Epoch 00032: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.2119 - accuracy: 0.9108 - val_loss: 0.3626 - val_accuracy: 0.8527
+Epoch 33/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2031 - accuracy: 0.9151 
+Epoch 00033: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.2032 - accuracy: 0.9150 - val_loss: 0.3692 - val_accuracy: 0.8420
+Epoch 34/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2001 - accuracy: 0.9162 
+Epoch 00034: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.2003 - accuracy: 0.9161 - val_loss: 0.3690 - val_accuracy: 0.8548
+Epoch 35/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1961 - accuracy: 0.9179 
+Epoch 00035: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1961 - accuracy: 0.9179 - val_loss: 0.3692 - val_accuracy: 0.8532
+Epoch 36/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1926 - accuracy: 0.9193 
+Epoch 00036: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1927 - accuracy: 0.9193 - val_loss: 0.3821 - val_accuracy: 0.8415
+Epoch 37/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1843 - accuracy: 0.9231 
+Epoch 00037: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1842 - accuracy: 0.9232 - val_loss: 0.3735 - val_accuracy: 0.8522
+Epoch 38/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1852 - accuracy: 0.9225 
+Epoch 00038: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1852 - accuracy: 0.9225 - val_loss: 0.3707 - val_accuracy: 0.8551
+Epoch 39/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1807 - accuracy: 0.9245 
+Epoch 00039: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1807 - accuracy: 0.9245 - val_loss: 0.3888 - val_accuracy: 0.8528
+Epoch 40/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1743 - accuracy: 0.9274 
+Epoch 00040: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1744 - accuracy: 0.9273 - val_loss: 0.3841 - val_accuracy: 0.8528
+Epoch 41/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1729 - accuracy: 0.9278 
+Epoch 00041: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1729 - accuracy: 0.9277 - val_loss: 0.3844 - val_accuracy: 0.8576
+Epoch 42/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1712 - accuracy: 0.9284 
+Epoch 00042: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1712 - accuracy: 0.9284 - val_loss: 0.4060 - val_accuracy: 0.8579
+Epoch 43/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1692 - accuracy: 0.9292 
+Epoch 00043: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1691 - accuracy: 0.9292 - val_loss: 0.3998 - val_accuracy: 0.8559
+Epoch 44/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1648 - accuracy: 0.9311 
+Epoch 00044: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1649 - accuracy: 0.9310 - val_loss: 0.4068 - val_accuracy: 0.8403
+Epoch 45/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1632 - accuracy: 0.9319 
+Epoch 00045: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1632 - accuracy: 0.9319 - val_loss: 0.4088 - val_accuracy: 0.8522
+Epoch 46/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1586 - accuracy: 0.9338 
+Epoch 00046: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1586 - accuracy: 0.9338 - val_loss: 0.4047 - val_accuracy: 0.8533
+Epoch 47/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1536 - accuracy: 0.9361 
+Epoch 00047: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1536 - accuracy: 0.9361 - val_loss: 0.4109 - val_accuracy: 0.8504
+Epoch 48/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1518 - accuracy: 0.9369 
+Epoch 00048: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1518 - accuracy: 0.9369 - val_loss: 0.4054 - val_accuracy: 0.8554
+Epoch 49/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1514 - accuracy: 0.9369 
+Epoch 00049: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1519 - accuracy: 0.9367 - val_loss: 0.4309 - val_accuracy: 0.8584
+Epoch 50/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1524 - accuracy: 0.9364 
+Epoch 00050: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1524 - accuracy: 0.9364 - val_loss: 0.4174 - val_accuracy: 0.8442
+Epoch 51/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1465 - accuracy: 0.9389 
+Epoch 00051: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1465 - accuracy: 0.9389 - val_loss: 0.4192 - val_accuracy: 0.8508
+Epoch 52/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1459 - accuracy: 0.9390 
+Epoch 00052: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1459 - accuracy: 0.9390 - val_loss: 0.4365 - val_accuracy: 0.8547
+Epoch 53/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1433 - accuracy: 0.9401 
+Epoch 00053: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1435 - accuracy: 0.9400 - val_loss: 0.4221 - val_accuracy: 0.8485
+Epoch 54/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1411 - accuracy: 0.9412 
+Epoch 00054: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1411 - accuracy: 0.9412 - val_loss: 0.4380 - val_accuracy: 0.8579
+Epoch 55/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1395 - accuracy: 0.9417 
+Epoch 00055: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1395 - accuracy: 0.9417 - val_loss: 0.4461 - val_accuracy: 0.8538
+Epoch 56/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1373 - accuracy: 0.9427 
+Epoch 00056: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1374 - accuracy: 0.9427 - val_loss: 0.4388 - val_accuracy: 0.8550
+Epoch 57/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1336 - accuracy: 0.9444 
+Epoch 00057: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1337 - accuracy: 0.9443 - val_loss: 0.4461 - val_accuracy: 0.8537
+Epoch 58/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1331 - accuracy: 0.9445 
+Epoch 00058: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1332 - accuracy: 0.9445 - val_loss: 0.4385 - val_accuracy: 0.8530
+Epoch 59/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1320 - accuracy: 0.9449 
+Epoch 00059: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1320 - accuracy: 0.9449 - val_loss: 0.4490 - val_accuracy: 0.8502
+Epoch 60/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1331 - accuracy: 0.9443 
+Epoch 00060: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1332 - accuracy: 0.9443 - val_loss: 0.4586 - val_accuracy: 0.8527
+Epoch 61/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1258 - accuracy: 0.9477 
+Epoch 00061: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1258 - accuracy: 0.9477 - val_loss: 0.4526 - val_accuracy: 0.8508
+Epoch 62/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1254 - accuracy: 0.9478 
+Epoch 00062: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1254 - accuracy: 0.9478 - val_loss: 0.4561 - val_accuracy: 0.8489
+Epoch 63/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1245 - accuracy: 0.9481 
+Epoch 00063: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1246 - accuracy: 0.9481 - val_loss: 0.4570 - val_accuracy: 0.8531
+Epoch 64/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1230 - accuracy: 0.9487 
+Epoch 00064: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1230 - accuracy: 0.9487 - val_loss: 0.4690 - val_accuracy: 0.8523
+Epoch 65/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1212 - accuracy: 0.9494 
+Epoch 00065: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1212 - accuracy: 0.9494 - val_loss: 0.4723 - val_accuracy: 0.8490
+Epoch 66/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1204 - accuracy: 0.9499 
+Epoch 00066: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1204 - accuracy: 0.9499 - val_loss: 0.4750 - val_accuracy: 0.8473
+Epoch 67/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1166 - accuracy: 0.9514 
+Epoch 00067: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1166 - accuracy: 0.9514 - val_loss: 0.4699 - val_accuracy: 0.8563
+Epoch 68/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1146 - accuracy: 0.9523 
+Epoch 00068: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1146 - accuracy: 0.9523 - val_loss: 0.4707 - val_accuracy: 0.8526
+Epoch 69/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1129 - accuracy: 0.9530 
+Epoch 00069: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1131 - accuracy: 0.9530 - val_loss: 0.4739 - val_accuracy: 0.8467
+Epoch 70/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1164 - accuracy: 0.9514 
+Epoch 00070: val_loss did not improve from 0.33530
+900/900 [==============================] - 17s 19ms/sample - loss: 0.1164 - accuracy: 0.9514 - val_loss: 0.4821 - val_accuracy: 0.8564
+
+Test Result -- (Segnet)
+Image:  0
+Pixel accuracy: 0.790
+Mean accuracy: 0.783
+Mean IOU: 0.646
+Frequency Weighted IOU: 0.655
+
+Image:  1
+Pixel accuracy: 0.727
+Mean accuracy: 0.726
+Mean IOU: 0.566
+Frequency Weighted IOU: 0.574
+Image:  2
+Pixel accuracy: 0.680
+Mean accuracy: 0.662
+Mean IOU: 0.497
+Frequency Weighted IOU: 0.525
+Image:  3
+Pixel accuracy: 0.794
+Mean accuracy: 0.784
+Mean IOU: 0.651
+Frequency Weighted IOU: 0.657
+
+Test loss: 0.439
+Test accuracy: 0.787
+
+
+
+
+
+Final U-net Results:
+
+Model details:
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_2 (InputLayer)            [(None, 128, 128, 3) 0                                            
+__________________________________________________________________________________________________
+lambda_1 (Lambda)               (None, 128, 128, 3)  0           input_2[0][0]                    
+__________________________________________________________________________________________________
+conv2d_164 (Conv2D)             (None, 128, 128, 64) 1792        lambda_1[0][0]                   
+__________________________________________________________________________________________________
+dropout_9 (Dropout)             (None, 128, 128, 64) 0           conv2d_164[0][0]                 
+__________________________________________________________________________________________________
+conv2d_165 (Conv2D)             (None, 128, 128, 64) 36928       dropout_9[0][0]                  
+__________________________________________________________________________________________________
+max_pooling2d_34 (MaxPooling2D) (None, 64, 64, 64)   0           conv2d_165[0][0]                 
+__________________________________________________________________________________________________
+conv2d_166 (Conv2D)             (None, 64, 64, 128)  73856       max_pooling2d_34[0][0]           
+__________________________________________________________________________________________________
+dropout_10 (Dropout)            (None, 64, 64, 128)  0           conv2d_166[0][0]                 
+__________________________________________________________________________________________________
+conv2d_167 (Conv2D)             (None, 64, 64, 128)  147584      dropout_10[0][0]                 
+__________________________________________________________________________________________________
+max_pooling2d_35 (MaxPooling2D) (None, 32, 32, 128)  0           conv2d_167[0][0]                 
+__________________________________________________________________________________________________
+conv2d_168 (Conv2D)             (None, 32, 32, 256)  295168      max_pooling2d_35[0][0]           
+__________________________________________________________________________________________________
+dropout_11 (Dropout)            (None, 32, 32, 256)  0           conv2d_168[0][0]                 
+__________________________________________________________________________________________________
+conv2d_169 (Conv2D)             (None, 32, 32, 256)  590080      dropout_11[0][0]                 
+__________________________________________________________________________________________________
+max_pooling2d_36 (MaxPooling2D) (None, 16, 16, 256)  0           conv2d_169[0][0]                 
+__________________________________________________________________________________________________
+conv2d_170 (Conv2D)             (None, 16, 16, 512)  1180160     max_pooling2d_36[0][0]           
+__________________________________________________________________________________________________
+dropout_12 (Dropout)            (None, 16, 16, 512)  0           conv2d_170[0][0]                 
+__________________________________________________________________________________________________
+conv2d_171 (Conv2D)             (None, 16, 16, 512)  2359808     dropout_12[0][0]                 
+__________________________________________________________________________________________________
+max_pooling2d_37 (MaxPooling2D) (None, 8, 8, 512)    0           conv2d_171[0][0]                 
+__________________________________________________________________________________________________
+conv2d_172 (Conv2D)             (None, 8, 8, 1024)   4719616     max_pooling2d_37[0][0]           
+__________________________________________________________________________________________________
+dropout_13 (Dropout)            (None, 8, 8, 1024)   0           conv2d_172[0][0]                 
+__________________________________________________________________________________________________
+conv2d_173 (Conv2D)             (None, 8, 8, 1024)   9438208     dropout_13[0][0]                 
+__________________________________________________________________________________________________
+conv2d_transpose_4 (Conv2DTrans (None, 16, 16, 512)  2097664     conv2d_173[0][0]                 
+__________________________________________________________________________________________________
+concatenate_4 (Concatenate)     (None, 16, 16, 1024) 0           conv2d_transpose_4[0][0]         
+                                                                 conv2d_171[0][0]                 
+__________________________________________________________________________________________________
+conv2d_174 (Conv2D)             (None, 16, 16, 512)  4719104     concatenate_4[0][0]              
+__________________________________________________________________________________________________
+dropout_14 (Dropout)            (None, 16, 16, 512)  0           conv2d_174[0][0]                 
+__________________________________________________________________________________________________
+conv2d_175 (Conv2D)             (None, 16, 16, 512)  2359808     dropout_14[0][0]                 
+__________________________________________________________________________________________________
+conv2d_transpose_5 (Conv2DTrans (None, 32, 32, 256)  524544      conv2d_175[0][0]                 
+__________________________________________________________________________________________________
+concatenate_5 (Concatenate)     (None, 32, 32, 512)  0           conv2d_transpose_5[0][0]         
+                                                                 conv2d_169[0][0]                 
+__________________________________________________________________________________________________
+conv2d_176 (Conv2D)             (None, 32, 32, 256)  1179904     concatenate_5[0][0]              
+__________________________________________________________________________________________________
+dropout_15 (Dropout)            (None, 32, 32, 256)  0           conv2d_176[0][0]                 
+__________________________________________________________________________________________________
+conv2d_177 (Conv2D)             (None, 32, 32, 256)  590080      dropout_15[0][0]                 
+__________________________________________________________________________________________________
+conv2d_transpose_6 (Conv2DTrans (None, 64, 64, 128)  131200      conv2d_177[0][0]                 
+__________________________________________________________________________________________________
+concatenate_6 (Concatenate)     (None, 64, 64, 256)  0           conv2d_transpose_6[0][0]         
+                                                                 conv2d_167[0][0]                 
+__________________________________________________________________________________________________
+conv2d_178 (Conv2D)             (None, 64, 64, 128)  295040      concatenate_6[0][0]              
+__________________________________________________________________________________________________
+dropout_16 (Dropout)            (None, 64, 64, 128)  0           conv2d_178[0][0]                 
+__________________________________________________________________________________________________
+conv2d_179 (Conv2D)             (None, 64, 64, 128)  147584      dropout_16[0][0]                 
+__________________________________________________________________________________________________
+conv2d_transpose_7 (Conv2DTrans (None, 128, 128, 64) 32832       conv2d_179[0][0]                 
+__________________________________________________________________________________________________
+concatenate_7 (Concatenate)     (None, 128, 128, 128 0           conv2d_transpose_7[0][0]         
+                                                                 conv2d_165[0][0]                 
+__________________________________________________________________________________________________
+conv2d_180 (Conv2D)             (None, 128, 128, 64) 73792       concatenate_7[0][0]              
+__________________________________________________________________________________________________
+dropout_17 (Dropout)            (None, 128, 128, 64) 0           conv2d_180[0][0]                 
+__________________________________________________________________________________________________
+conv2d_181 (Conv2D)             (None, 128, 128, 64) 36928       dropout_17[0][0]                 
+__________________________________________________________________________________________________
+conv2d_182 (Conv2D)             (None, 128, 128, 1)  65          conv2d_181[0][0]                 
+==================================================================================================
+Total params: 31,031,745
+Trainable params: 31,031,745
+Non-trainable params: 0
+
+Data Updating Process
+896/900 [============================>.] - ETA: 0s - loss: 0.5655 - accuracy: 0.7502  
+Epoch 00001: val_loss improved from inf to 0.26054, saving model to Ubestmodel.h5
+900/900 [==============================] - 27s 30ms/sample - loss: 0.5648 - accuracy: 0.7505 - val_loss: 0.2605 - val_accuracy: 0.9029
+Epoch 2/300
+896/900 [============================>.] - ETA: 0s - loss: 0.3368 - accuracy: 0.8582 
+Epoch 00002: val_loss improved from 0.26054 to 0.25066, saving model to Ubestmodel.h5
+900/900 [==============================] - 23s 25ms/sample - loss: 0.3370 - accuracy: 0.8581 - val_loss: 0.2507 - val_accuracy: 0.9046
+Epoch 3/300
+896/900 [============================>.] - ETA: 0s - loss: 0.3305 - accuracy: 0.8599 
+Epoch 00003: val_loss did not improve from 0.25066
+900/900 [==============================] - 21s 24ms/sample - loss: 0.3306 - accuracy: 0.8598 - val_loss: 0.2583 - val_accuracy: 0.8971
+Epoch 4/300
+896/900 [============================>.] - ETA: 0s - loss: 0.3155 - accuracy: 0.8650 
+Epoch 00004: val_loss improved from 0.25066 to 0.24542, saving model to Ubestmodel.h5
+900/900 [==============================] - 22s 25ms/sample - loss: 0.3153 - accuracy: 0.8651 - val_loss: 0.2454 - val_accuracy: 0.9059
+Epoch 5/300
+896/900 [============================>.] - ETA: 0s - loss: 0.3013 - accuracy: 0.8705 
+Epoch 00005: val_loss improved from 0.24542 to 0.24035, saving model to Ubestmodel.h5
+900/900 [==============================] - 22s 25ms/sample - loss: 0.3013 - accuracy: 0.8706 - val_loss: 0.2404 - val_accuracy: 0.9065
+Epoch 6/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2932 - accuracy: 0.8738 
+Epoch 00006: val_loss improved from 0.24035 to 0.23898, saving model to Ubestmodel.h5
+900/900 [==============================] - 22s 25ms/sample - loss: 0.2934 - accuracy: 0.8737 - val_loss: 0.2390 - val_accuracy: 0.9102
+Epoch 7/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2864 - accuracy: 0.8763 
+Epoch 00007: val_loss improved from 0.23898 to 0.23361, saving model to Ubestmodel.h5
+900/900 [==============================] - 22s 25ms/sample - loss: 0.2864 - accuracy: 0.8763 - val_loss: 0.2336 - val_accuracy: 0.9133
+Epoch 8/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2785 - accuracy: 0.8792 
+Epoch 00008: val_loss improved from 0.23361 to 0.22406, saving model to Ubestmodel.h5
+900/900 [==============================] - 23s 26ms/sample - loss: 0.2785 - accuracy: 0.8791 - val_loss: 0.2241 - val_accuracy: 0.9140
+Epoch 9/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2724 - accuracy: 0.8814 
+Epoch 00009: val_loss did not improve from 0.22406
+900/900 [==============================] - 21s 24ms/sample - loss: 0.2724 - accuracy: 0.8814 - val_loss: 0.2243 - val_accuracy: 0.9125
+Epoch 10/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2708 - accuracy: 0.8821 
+Epoch 00010: val_loss improved from 0.22406 to 0.22329, saving model to Ubestmodel.h5
+900/900 [==============================] - 22s 25ms/sample - loss: 0.2707 - accuracy: 0.8822 - val_loss: 0.2233 - val_accuracy: 0.9169
+Epoch 11/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2633 - accuracy: 0.8847 
+Epoch 00011: val_loss improved from 0.22329 to 0.21631, saving model to Ubestmodel.h5
+900/900 [==============================] - 22s 25ms/sample - loss: 0.2632 - accuracy: 0.8848 - val_loss: 0.2163 - val_accuracy: 0.9165
+Epoch 12/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2601 - accuracy: 0.8861 
+Epoch 00012: val_loss did not improve from 0.21631
+900/900 [==============================] - 21s 24ms/sample - loss: 0.2601 - accuracy: 0.8861 - val_loss: 0.2212 - val_accuracy: 0.9182
+Epoch 13/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2564 - accuracy: 0.8872 
+Epoch 00013: val_loss did not improve from 0.21631
+900/900 [==============================] - 21s 24ms/sample - loss: 0.2565 - accuracy: 0.8871 - val_loss: 0.2170 - val_accuracy: 0.9145
+Epoch 14/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2537 - accuracy: 0.8884 
+Epoch 00014: val_loss improved from 0.21631 to 0.21149, saving model to Ubestmodel.h5
+900/900 [==============================] - 22s 25ms/sample - loss: 0.2537 - accuracy: 0.8883 - val_loss: 0.2115 - val_accuracy: 0.9176
+Epoch 15/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2487 - accuracy: 0.8901 
+Epoch 00015: val_loss did not improve from 0.21149
+900/900 [==============================] - 22s 24ms/sample - loss: 0.2488 - accuracy: 0.8900 - val_loss: 0.2119 - val_accuracy: 0.9169
+Epoch 16/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2438 - accuracy: 0.8917 
+Epoch 00016: val_loss did not improve from 0.21149
+900/900 [==============================] - 21s 23ms/sample - loss: 0.2436 - accuracy: 0.8918 - val_loss: 0.2134 - val_accuracy: 0.9201
+Epoch 17/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2402 - accuracy: 0.8932 
+Epoch 00017: val_loss improved from 0.21149 to 0.20765, saving model to Ubestmodel.h5
+900/900 [==============================] - 22s 25ms/sample - loss: 0.2401 - accuracy: 0.8932 - val_loss: 0.2076 - val_accuracy: 0.9200
+Epoch 18/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2352 - accuracy: 0.8949 
+Epoch 00018: val_loss improved from 0.20765 to 0.20585, saving model to Ubestmodel.h5
+900/900 [==============================] - 22s 25ms/sample - loss: 0.2351 - accuracy: 0.8950 - val_loss: 0.2059 - val_accuracy: 0.9223
+Epoch 19/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2291 - accuracy: 0.8972 
+Epoch 00019: val_loss improved from 0.20585 to 0.20462, saving model to Ubestmodel.h5
+900/900 [==============================] - 23s 26ms/sample - loss: 0.2289 - accuracy: 0.8973 - val_loss: 0.2046 - val_accuracy: 0.9221
+Epoch 20/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2231 - accuracy: 0.8996 
+Epoch 00020: val_loss did not improve from 0.20462
+900/900 [==============================] - 21s 23ms/sample - loss: 0.2232 - accuracy: 0.8996 - val_loss: 0.2059 - val_accuracy: 0.9234
+Epoch 21/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2172 - accuracy: 0.9022 
+Epoch 00021: val_loss did not improve from 0.20462
+900/900 [==============================] - 21s 23ms/sample - loss: 0.2171 - accuracy: 0.9023 - val_loss: 0.2103 - val_accuracy: 0.9243
+Epoch 22/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2126 - accuracy: 0.9040 
+Epoch 00022: val_loss improved from 0.20462 to 0.20121, saving model to Ubestmodel.h5
+900/900 [==============================] - 23s 25ms/sample - loss: 0.2127 - accuracy: 0.9040 - val_loss: 0.2012 - val_accuracy: 0.9237
+Epoch 23/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2052 - accuracy: 0.9072 
+Epoch 00023: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 23ms/sample - loss: 0.2053 - accuracy: 0.9071 - val_loss: 0.2034 - val_accuracy: 0.9247
+Epoch 24/300
+896/900 [============================>.] - ETA: 0s - loss: 0.2002 - accuracy: 0.9093 
+Epoch 00024: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 23ms/sample - loss: 0.2003 - accuracy: 0.9093 - val_loss: 0.2094 - val_accuracy: 0.9232
+Epoch 25/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1956 - accuracy: 0.9114 
+Epoch 00025: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 23ms/sample - loss: 0.1958 - accuracy: 0.9113 - val_loss: 0.2184 - val_accuracy: 0.9231
+Epoch 26/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1919 - accuracy: 0.9132 
+Epoch 00026: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 23ms/sample - loss: 0.1920 - accuracy: 0.9132 - val_loss: 0.2186 - val_accuracy: 0.9252
+Epoch 27/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1842 - accuracy: 0.9166 
+Epoch 00027: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 23ms/sample - loss: 0.1845 - accuracy: 0.9165 - val_loss: 0.2115 - val_accuracy: 0.9224
+Epoch 28/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1798 - accuracy: 0.9187 
+Epoch 00028: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 23ms/sample - loss: 0.1799 - accuracy: 0.9187 - val_loss: 0.2280 - val_accuracy: 0.9236
+Epoch 29/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1748 - accuracy: 0.9210 
+Epoch 00029: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 23ms/sample - loss: 0.1748 - accuracy: 0.9210 - val_loss: 0.2340 - val_accuracy: 0.9242
+Epoch 30/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1704 - accuracy: 0.9231 
+Epoch 00030: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 23ms/sample - loss: 0.1703 - accuracy: 0.9232 - val_loss: 0.2381 - val_accuracy: 0.9244
+Epoch 31/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1677 - accuracy: 0.9246 
+Epoch 00031: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 23ms/sample - loss: 0.1677 - accuracy: 0.9246 - val_loss: 0.2315 - val_accuracy: 0.9241
+Epoch 32/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1632 - accuracy: 0.9266 
+Epoch 00032: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1633 - accuracy: 0.9266 - val_loss: 0.2401 - val_accuracy: 0.9261
+Epoch 33/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1591 - accuracy: 0.9286 
+Epoch 00033: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 23ms/sample - loss: 0.1590 - accuracy: 0.9287 - val_loss: 0.2563 - val_accuracy: 0.9268
+Epoch 34/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1553 - accuracy: 0.9304 
+Epoch 00034: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 24ms/sample - loss: 0.1552 - accuracy: 0.9304 - val_loss: 0.2406 - val_accuracy: 0.9227
+Epoch 35/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1546 - accuracy: 0.9309 
+Epoch 00035: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 24ms/sample - loss: 0.1547 - accuracy: 0.9309 - val_loss: 0.2454 - val_accuracy: 0.9236
+Epoch 36/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1496 - accuracy: 0.9333 
+Epoch 00036: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 24ms/sample - loss: 0.1497 - accuracy: 0.9332 - val_loss: 0.2585 - val_accuracy: 0.9250
+Epoch 37/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1471 - accuracy: 0.9345 
+Epoch 00037: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 25ms/sample - loss: 0.1472 - accuracy: 0.9345 - val_loss: 0.2719 - val_accuracy: 0.9254
+Epoch 38/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1445 - accuracy: 0.9358 
+Epoch 00038: val_loss did not improve from 0.20121
+900/900 [==============================] - 23s 26ms/sample - loss: 0.1445 - accuracy: 0.9358 - val_loss: 0.2514 - val_accuracy: 0.9250
+Epoch 39/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1416 - accuracy: 0.9371 
+Epoch 00039: val_loss did not improve from 0.20121
+900/900 [==============================] - 23s 26ms/sample - loss: 0.1417 - accuracy: 0.9371 - val_loss: 0.2751 - val_accuracy: 0.9258
+Epoch 40/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1399 - accuracy: 0.9379 
+Epoch 00040: val_loss did not improve from 0.20121
+900/900 [==============================] - 23s 26ms/sample - loss: 0.1401 - accuracy: 0.9378 - val_loss: 0.2485 - val_accuracy: 0.9236
+Epoch 41/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1379 - accuracy: 0.9389 
+Epoch 00041: val_loss did not improve from 0.20121
+900/900 [==============================] - 23s 25ms/sample - loss: 0.1379 - accuracy: 0.9389 - val_loss: 0.2820 - val_accuracy: 0.9267
+Epoch 42/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1364 - accuracy: 0.9396 
+Epoch 00042: val_loss did not improve from 0.20121
+900/900 [==============================] - 23s 25ms/sample - loss: 0.1364 - accuracy: 0.9396 - val_loss: 0.2745 - val_accuracy: 0.9244
+Epoch 43/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1352 - accuracy: 0.9402 
+Epoch 00043: val_loss did not improve from 0.20121
+900/900 [==============================] - 23s 25ms/sample - loss: 0.1351 - accuracy: 0.9402 - val_loss: 0.2739 - val_accuracy: 0.9249
+Epoch 44/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1322 - accuracy: 0.9417 
+Epoch 00044: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 23ms/sample - loss: 0.1321 - accuracy: 0.9417 - val_loss: 0.2825 - val_accuracy: 0.9258
+Epoch 45/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1298 - accuracy: 0.9428 
+Epoch 00045: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1298 - accuracy: 0.9428 - val_loss: 0.2910 - val_accuracy: 0.9259
+Epoch 46/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1288 - accuracy: 0.9433 
+Epoch 00046: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1287 - accuracy: 0.9433 - val_loss: 0.2729 - val_accuracy: 0.9246
+Epoch 47/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1278 - accuracy: 0.9438 
+Epoch 00047: val_loss did not improve from 0.20121
+900/900 [==============================] - 23s 26ms/sample - loss: 0.1278 - accuracy: 0.9438 - val_loss: 0.2894 - val_accuracy: 0.9264
+Epoch 48/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1270 - accuracy: 0.9442 
+Epoch 00048: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 24ms/sample - loss: 0.1270 - accuracy: 0.9442 - val_loss: 0.2922 - val_accuracy: 0.9252
+Epoch 49/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1243 - accuracy: 0.9454 
+Epoch 00049: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 25ms/sample - loss: 0.1242 - accuracy: 0.9454 - val_loss: 0.3110 - val_accuracy: 0.9249
+Epoch 50/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1226 - accuracy: 0.9462 
+Epoch 00050: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 25ms/sample - loss: 0.1225 - accuracy: 0.9463 - val_loss: 0.2799 - val_accuracy: 0.9263
+Epoch 51/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1234 - accuracy: 0.9459 
+Epoch 00051: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 25ms/sample - loss: 0.1233 - accuracy: 0.9459 - val_loss: 0.2835 - val_accuracy: 0.9246
+Epoch 52/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1213 - accuracy: 0.9468 
+Epoch 00052: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 24ms/sample - loss: 0.1213 - accuracy: 0.9468 - val_loss: 0.3147 - val_accuracy: 0.9275
+Epoch 53/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1187 - accuracy: 0.9480 
+Epoch 00053: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 24ms/sample - loss: 0.1189 - accuracy: 0.9480 - val_loss: 0.2937 - val_accuracy: 0.9259
+Epoch 54/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1194 - accuracy: 0.9478 
+Epoch 00054: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 24ms/sample - loss: 0.1194 - accuracy: 0.9478 - val_loss: 0.2970 - val_accuracy: 0.9257
+Epoch 55/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1190 - accuracy: 0.9480 
+Epoch 00055: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 25ms/sample - loss: 0.1191 - accuracy: 0.9479 - val_loss: 0.3245 - val_accuracy: 0.9273
+Epoch 56/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1175 - accuracy: 0.9486 
+Epoch 00056: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 24ms/sample - loss: 0.1175 - accuracy: 0.9486 - val_loss: 0.3059 - val_accuracy: 0.9268
+Epoch 57/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1155 - accuracy: 0.9496 
+Epoch 00057: val_loss did not improve from 0.20121
+900/900 [==============================] - 23s 26ms/sample - loss: 0.1155 - accuracy: 0.9496 - val_loss: 0.3078 - val_accuracy: 0.9268
+Epoch 58/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1155 - accuracy: 0.9495 
+Epoch 00058: val_loss did not improve from 0.20121
+900/900 [==============================] - 23s 25ms/sample - loss: 0.1155 - accuracy: 0.9496 - val_loss: 0.3046 - val_accuracy: 0.9271
+Epoch 59/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1139 - accuracy: 0.9503 
+Epoch 00059: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 25ms/sample - loss: 0.1139 - accuracy: 0.9503 - val_loss: 0.2906 - val_accuracy: 0.9257
+Epoch 60/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1133 - accuracy: 0.9506 
+Epoch 00060: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1134 - accuracy: 0.9506 - val_loss: 0.3037 - val_accuracy: 0.9267
+Epoch 61/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1119 - accuracy: 0.9513 
+Epoch 00061: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1118 - accuracy: 0.9513 - val_loss: 0.3029 - val_accuracy: 0.9268
+Epoch 62/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1107 - accuracy: 0.9518 
+Epoch 00062: val_loss did not improve from 0.20121
+900/900 [==============================] - 22s 24ms/sample - loss: 0.1107 - accuracy: 0.9518 - val_loss: 0.3017 - val_accuracy: 0.9244
+Epoch 63/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1098 - accuracy: 0.9523 
+Epoch 00063: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1099 - accuracy: 0.9522 - val_loss: 0.3119 - val_accuracy: 0.9269
+Epoch 64/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1095 - accuracy: 0.9524 
+Epoch 00064: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1095 - accuracy: 0.9523 - val_loss: 0.3183 - val_accuracy: 0.9269
+Epoch 65/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1082 - accuracy: 0.9530 
+Epoch 00065: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1082 - accuracy: 0.9529 - val_loss: 0.3172 - val_accuracy: 0.9266
+Epoch 66/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1086 - accuracy: 0.9528 
+Epoch 00066: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1087 - accuracy: 0.9527 - val_loss: 0.3159 - val_accuracy: 0.9272
+Epoch 67/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1082 - accuracy: 0.9530 
+Epoch 00067: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1081 - accuracy: 0.9530 - val_loss: 0.3141 - val_accuracy: 0.9256
+Epoch 68/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1065 - accuracy: 0.9537 
+Epoch 00068: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1066 - accuracy: 0.9537 - val_loss: 0.3386 - val_accuracy: 0.9278
+Epoch 69/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1053 - accuracy: 0.9542 
+Epoch 00069: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1054 - accuracy: 0.9542 - val_loss: 0.3399 - val_accuracy: 0.9279
+Epoch 70/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1046 - accuracy: 0.9546 
+Epoch 00070: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1045 - accuracy: 0.9546 - val_loss: 0.3306 - val_accuracy: 0.9271
+Epoch 71/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1046 - accuracy: 0.9546 
+Epoch 00071: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1046 - accuracy: 0.9546 - val_loss: 0.3142 - val_accuracy: 0.9266
+Epoch 72/300
+896/900 [============================>.] - ETA: 0s - loss: 0.1057 - accuracy: 0.9541 
+Epoch 00072: val_loss did not improve from 0.20121
+900/900 [==============================] - 21s 24ms/sample - loss: 0.1057 - accuracy: 0.9541 - val_loss: 0.3048 - val_accuracy: 0.9263
+
+Test Result: (U-net)
+Image:  0
+Pixel accuracy: 0.931
+Mean accuracy: 0.926
+Mean IOU: 0.866
+Frequency Weighted IOU: 0.871
+
+Image:  1
+Pixel accuracy: 0.871
+Mean accuracy: 0.864
+Mean IOU: 0.765
+Frequency Weighted IOU: 0.772
+Image:  2
+Pixel accuracy: 0.865
+Mean accuracy: 0.838
+Mean IOU: 0.740
+Frequency Weighted IOU: 0.762
+Image:  3
+Pixel accuracy: 0.898
+Mean accuracy: 0.895
+Mean IOU: 0.812
+Frequency Weighted IOU: 0.815
+
+Test loss: 0.259
+Test accuracy: 0.892
+
+
+
+
+
+
+
+
